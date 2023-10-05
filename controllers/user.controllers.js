@@ -200,6 +200,100 @@ const getBookHistory = async (req, res) => {
         res.status(500).json({ error: 'Internal server error.' });
     }
 }
+
+
+// Function to deduplicate and sort recommendations based on user preferences
+function deduplicateAndSort(recommendations, user) {
+    // Create a map to store book scores based on genres
+    const genreScores = new Map();
+  
+    // Iterate through the user's borrowing history
+    for (const borrowedBook of user.borrowedBooks) {
+      const book = recommendations.find((recBook) =>
+        String(recBook._id) === String(borrowedBook)
+      );
+  
+      if (book) {
+        // Increase the score for the book's genre
+        const genre = book.genre;
+  
+        if (!genreScores.has(genre)) {
+          genreScores.set(genre, 1);
+        } else {
+          genreScores.set(genre, genreScores.get(genre) + 1);
+        }
+      }
+    }
+  
+    // Sort the recommendations based on genre scores
+    recommendations.sort((a, b) => {
+      const genreA = a.genre;
+      const genreB = b.genre;
+      const scoreA = genreScores.get(genreA) || 0;
+      const scoreB = genreScores.get(genreB) || 0;
+  
+      // Sort in descending order of genre scores
+      return scoreB - scoreA;
+    });
+  
+    // Deduplicate the sorted recommendations (remove duplicates by book ID)
+    const uniqueRecommendations = recommendations.filter(
+      (book, index, self) =>
+        index === self.findIndex((b) => b._id === book._id)
+    );
+  
+    return uniqueRecommendations;
+  }
+  
+
+const recommendations = async(req,res)=>{
+    const {userId} = req.body;
+
+  try {
+    // Find the user by ID
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Get the user's borrowing history
+    const borrowingHistory = user.borrowedBooks;
+
+    // Initialize an empty recommendation list
+    const recommendations = [];
+
+    // Iterate through the user's borrowing history
+    for (const borrowedBook of borrowingHistory) {
+      const book = await BookModel.findById(borrowedBook);
+
+      if (book) {
+        // For each book in the borrowing history, find books with similar genres
+        const similarBooks = await BookModel.find({ genre: book.genre })
+          .where('_id')
+          .ne(borrowedBook) // Exclude the same book
+          .limit(5); // Limit the number of recommendations
+
+        // Add similar books to the recommendation list
+        recommendations.push(...similarBooks);
+      }
+    }
+
+    // Sort and deduplicate the recommendation list based on user preferences
+    const uniqueRecommendations = deduplicateAndSort(recommendations, user);
+
+    res.status(200).json(uniqueRecommendations);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+}
+
+
+
+
+
+
 // export module------->
 module.exports = {
     register,
@@ -207,5 +301,6 @@ module.exports = {
     logout,
     borrowBook,
     returnBook,
-    getBookHistory
+    getBookHistory,
+    recommendations
 }

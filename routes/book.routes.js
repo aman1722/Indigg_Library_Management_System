@@ -11,7 +11,7 @@ bookRouter.post("/add",authorizeMiddleware("admin"),addBook);
 
 bookRouter.patch("/update/:bookId",authorizeMiddleware("admin"),updateBook)
 
-bookRouter.delete("/delete:bookId",authorizeMiddleware("admin"),deleteBook)
+bookRouter.delete("/delete/:bookId",authorizeMiddleware("admin"),deleteBook)
 
 bookRouter.get("/",getAllBook)
 
