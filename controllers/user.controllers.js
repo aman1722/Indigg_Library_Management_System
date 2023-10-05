@@ -26,7 +26,7 @@ const register = async (req, res) => {
         const newUser = await new UserModel({ ...req.body, password: hashPassword });
         await newUser.save();
 
-        res.status(201).send({ msg: "User Registration Successful" })
+        res.status(201).send({ok:true, msg: "User Registration Successful" })
     } catch (error) {
         console.log('/user/register: ', err.message);
         res.status(501).send({ msg: "Internal Server error", error: error.message });
@@ -53,7 +53,7 @@ const login = async (req, res) => {
             }
         );
 
-        res.status(200).json({ message: "Login Successful", token });
+        res.status(200).json({ok:true, message: "Login Successful", token });
     } catch (error) {
         console.log('/user/login: ', error.message);
         res.status(501).send({ msg: "Internal Server error", error: error.message });
@@ -68,7 +68,7 @@ const logout = async (req, res) => {
         const blacklisted = new BlacklistModel({ "token": token });
         await blacklisted.save();
         console.log('logout successful')
-        res.status(200).send({ msg: 'Logout Successful' });
+        res.status(200).send({ ok:true, msg: 'Logout Successful' });
     } catch (error) {
         console.log('/user/logout: ', error.message);
         res.status(501).send({ msg: "Internal Server error", error: error.message });
