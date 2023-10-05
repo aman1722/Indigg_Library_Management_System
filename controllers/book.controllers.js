@@ -78,10 +78,40 @@ const getAllBook = async (req, res) => {
 }
 
 
+const searchBook = async(req,res)=>{
+    const {searchTerm} = req.query; 
+
+  if (!searchTerm) {
+    return res.status(400).json({ error: 'Search term is required.' });
+  }
+
+  try {
+    // Use a regular expression to perform a case-insensitive search
+    // const regex = new RegExp(searchTerm, 'i');
+
+    // Search for books that match the search term in title, author, or ISBN
+    const searchTermString = String(searchTerm);
+    const matchingBooks = await BookModel.find({
+        $or: [
+          { title: { $regex: searchTermString, $options: 'i' } },
+          { author: { $regex: searchTermString, $options: 'i' } },
+          { ISBN: { $regex: searchTermString, $options: 'i' } }, // Treat ISBN as a string
+        ],
+      });
+
+    res.status(200).json(matchingBooks);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+}
+
+
 
 module.exports = {
     addBook,
     updateBook,
     deleteBook,
-    getAllBook
+    getAllBook,
+    searchBook
 }

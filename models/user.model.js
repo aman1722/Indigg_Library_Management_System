@@ -22,7 +22,13 @@ const userSchema = mongoose.Schema({
         type:String,
         enum:["user","admin"],
         default:"user"
-      }
+      },
+      borrowedBooks:[
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Book' // Reference to the Book model
+        }
+      ]
 })
 
 // model for user------>

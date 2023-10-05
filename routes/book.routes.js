@@ -1,5 +1,5 @@
 const express = require("express");
-const { addBook, updateBook, deleteBook, getAllBook } = require("../controllers/book.controllers");
+const { addBook, updateBook, deleteBook, getAllBook, searchBook } = require("../controllers/book.controllers");
 const { authorizeMiddleware } = require("../middlewares/authorize.middleware");
 
 
@@ -15,6 +15,7 @@ bookRouter.delete("/delete:bookId",authorizeMiddleware("admin"),deleteBook)
 
 bookRouter.get("/",getAllBook)
 
+bookRouter.get("/search",searchBook);
 
 module.exports={
     bookRouter

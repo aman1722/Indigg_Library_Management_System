@@ -1,7 +1,7 @@
 // importing all module-------->
 const express = require("express");
 const { body } = require("express-validator");
-const { register, login, logout } = require("../controllers/user.controllers");
+const { register, login, logout, borrowBook, returnBook, getBookHistory } = require("../controllers/user.controllers");
 const { authMiddleware } = require("../middlewares/auth.middleware");
 
 // creating a user router instance----->
@@ -49,6 +49,11 @@ userRouter.post("/login",[
 
 userRouter.post("/logout",authMiddleware, logout);
 
+userRouter.post("/borrow/:bookId",authMiddleware,borrowBook);
+
+userRouter.post("/return/:bookId",authMiddleware,returnBook);
+
+userRouter.get("/book/:bookId/history",authMiddleware,getBookHistory);
 
 
 
