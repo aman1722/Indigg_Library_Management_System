@@ -5,6 +5,9 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.routes");
+const { bookRouter } = require("./routes/book.routes");
+const { authMiddleware } = require("./middlewares/auth.middleware");
+
 
 
 const app = express();
@@ -43,7 +46,7 @@ app.get("/",async(req,res)=>{
 
 
 app.use("/user",userRouter);
-
+app.use("/book",authMiddleware,bookRouter);
 
 
 

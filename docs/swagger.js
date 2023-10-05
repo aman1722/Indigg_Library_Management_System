@@ -34,6 +34,9 @@
  *         password:
  *           type: string
  *           description: The password of the user.
+ *         role:
+ *           type: string
+ *           description: The role of the user(Default Value is "user" if want admin rights So provide role as "admin")
  *       required:
  *         - name
  *         - email
