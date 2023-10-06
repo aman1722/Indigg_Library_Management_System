@@ -110,6 +110,25 @@ JWT_LOGIN_SECRET=`CREATE_A_SECRET_FOR_LOGIN_TOKEN`
 - Search book by providing keyword in queary.
 
 
+
+
+#### Dummy Admin Credentials: 
+email: `admin@gmail.com`
+password: `indigg`
+
+
+#### Dummy User Credentials 1: 
+email: `aman@gmail.com`
+password: `amanaman`
+
+
+#### Dummy User Credentials 2: 
+email: `harshu@gmail.com`
+password: `harshu`
+
+
+
+
 ## Endpoints Reference
 
 For detailed information on how to use our API, please refer to the [API documentation](docs/ApiDocs.md).
@@ -176,6 +195,27 @@ app.get("/",async(req,res)=>{
 ## Folder Structure
 
 We maintain a clean and organized folder structure for easy navigation and development. Get familiar with it in the [Folder Structure](docs/FolderStructure.md) document.
+
+
+## Swagger Docs SnapShots
+
+### Home-swagger
+![image](https://github.com/aman1722/Indigg_Library_Management_System/assets/112754413/e5624987-0604-4924-8d22-fcfd6661ba89)
+
+### User-swagger
+![image](https://github.com/aman1722/Indigg_Library_Management_System/assets/112754413/fd932563-db1b-42c6-8738-d0fc8d2dd70e)
+
+### Admin-swagger
+![image](https://github.com/aman1722/Indigg_Library_Management_System/assets/112754413/42508ace-5846-4745-ab89-76065f1a0eb6)
+
+### Books-swagger
+![image](https://github.com/aman1722/Indigg_Library_Management_System/assets/112754413/3c94d742-fc9b-402c-a840-877da535e6c9)
+
+### Schemas-swagger
+![image](https://github.com/aman1722/Indigg_Library_Management_System/assets/112754413/7b0a4aca-1411-42c4-b61f-8e0202a29894)
+
+
+Made with ❤️ by the INDI.GG Library Managment Team
 
 
 
