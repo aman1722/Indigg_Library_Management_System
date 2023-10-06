@@ -62,7 +62,28 @@ SALT_ROUNDS=`PROVIDE_A_NUMBER_FOR_HASHING_SALT_ROUND`
 JWT_LOGIN_SECRET=`CREATE_A_SECRET_FOR_LOGIN_TOKEN`
 ```
 
+## Docker
 
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/aman1722/Indigg_Library_Management_System
+   ```
+   
+2. Build the Docker Image:
+   ```
+   docker build -t <your-image-name> .
+   ```
+
+3. Run the Docker container:
+   ```
+   docker run --rm -d -p <local-port>:<container-port> --name <your-container-name> <your-image-name> 
+   ```
+
+4. Access the application in your web browse:
+    ```
+    http://localhost:<local_port>
+    ```
 
 ## Features (with rate limiter middleware limiting requests to 10 per minute)
 

@@ -53,3 +53,7 @@
 ::1 - - [06/Oct/2023:07:10:39 +0000] "GET /book/search?searchTerm=The%20book HTTP/1.1" 200 2 "http://localhost:8080/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 ::1 - - [06/Oct/2023:07:10:46 +0000] "GET /book/search?searchTerm=The%20 HTTP/1.1" 200 633 "http://localhost:8080/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 ::1 - - [06/Oct/2023:07:14:27 +0000] "GET / HTTP/1.1" 304 - "http://localhost:8080/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+::1 - - [06/Oct/2023:11:48:25 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+::1 - - [06/Oct/2023:11:48:54 +0000] "POST /user/register HTTP/1.1" 201 48 "http://localhost:8080/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+::1 - - [06/Oct/2023:11:49:41 +0000] "POST /user/login HTTP/1.1" 200 242 "http://localhost:8080/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+::1 - - [06/Oct/2023:11:55:53 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
