@@ -9,6 +9,7 @@ const { bookRouter } = require("./routes/book.routes");
 const { authMiddleware } = require("./middlewares/auth.middleware");
 const { logger } = require("./middlewares/logger.middleware");
 const { rateLimiter } = require("./middlewares/rateLimiter.middleware");
+const { adminRouter } = require("./routes/admin.routes");
 
 
 const app = express();
@@ -55,6 +56,7 @@ app.get("/",async(req,res)=>{
 
 app.use("/user",userRouter);
 
+app.use("/admin/book",authMiddleware,adminRouter);
 
 app.use("/book",authMiddleware,bookRouter);
 
