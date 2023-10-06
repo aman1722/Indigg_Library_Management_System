@@ -67,15 +67,31 @@ const deleteBook = async (req, res) => {
 
 const getAllBook = async (req, res) => {
     try {
-        const books = await BookModel.find({});
+        const page = parseInt(req.query.page) || 1; 
+        const limit = parseInt(req.query.limit) || 4; 
 
-        res.status(200).send({ok:true,books})
+        const skip = (page - 1) * limit; 
+
+        const totalBooks = await BookModel.countDocuments(); 
+
+        
+        const books = await BookModel.find({})
+            .skip(skip)
+            .limit(limit);
+
+        res.status(200).send({
+            ok: true,
+            books,
+            currentPage: page,
+            totalPages: Math.ceil(totalBooks / limit)
+        });
 
     } catch (error) {
         console.log('/book/: ', error.message);
         res.status(501).send({ msg: "Internal Server error", error: error.message });
     }
 }
+
 
 
 const searchBook = async(req,res)=>{
@@ -86,16 +102,12 @@ const searchBook = async(req,res)=>{
   }
 
   try {
-    // Use a regular expression to perform a case-insensitive search
-    // const regex = new RegExp(searchTerm, 'i');
-
-    // Search for books that match the search term in title, author, or ISBN
     const searchTermString = String(searchTerm);
     const matchingBooks = await BookModel.find({
         $or: [
           { title: { $regex: searchTermString, $options: 'i' } },
           { author: { $regex: searchTermString, $options: 'i' } },
-          { ISBN: { $regex: searchTermString, $options: 'i' } }, // Treat ISBN as a string
+          { ISBN: { $regex: searchTermString, $options: 'i' } }, 
         ],
       });
 
