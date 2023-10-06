@@ -7,7 +7,8 @@ const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.routes");
 const { bookRouter } = require("./routes/book.routes");
 const { authMiddleware } = require("./middlewares/auth.middleware");
-
+const { logger } = require("./middlewares/logger.middleware");
+const { rateLimiter } = require("./middlewares/rateLimiter.middleware");
 
 
 const app = express();
@@ -36,6 +37,13 @@ const options = {
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
+
+app.use(logger);
+app.use(rateLimiter);
+
+
+
+
 app.get("/",async(req,res)=>{
     try {
         res.status(200).send({ok:true,message:"Welcome to INDI.GG Backend Assignment!"})
@@ -46,6 +54,8 @@ app.get("/",async(req,res)=>{
 
 
 app.use("/user",userRouter);
+
+
 app.use("/book",authMiddleware,bookRouter);
 
 
